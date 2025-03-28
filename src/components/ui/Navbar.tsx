@@ -1,6 +1,15 @@
 "use client";
 
+import { ROUTES } from "@/utils/routes";
+import Link from "next/link";
 import { useEffect, useState } from "react";
+
+///---> defind navbar variable
+const listNav = [
+    { name: "Home", path: ROUTES.HOME },
+    { name: "About", path: ROUTES.ABOUT },
+    { name: "Contact", path: ROUTES.CONTACT },
+];
 
 export default function Navbar() {
     const [mounted, setMounted] = useState(false);
@@ -12,12 +21,10 @@ export default function Navbar() {
     if (!mounted) return null;
 
     return (
-        <header className="w-full bg-gray-100 dark:bg-gray-900 shadow-md">
-            <div className="container mx-auto flex items-center justify-start px-6 py-4">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-                    Phạm Phước Trường
-                </h2>
-            </div>
+        <header className="py-4">
+            <ul className="flex justify-center items-center w-full">
+                {listNav.map((value) => <Link key={value.path} className="px-10 py-2" href={value.path}>{value.name}</Link>)}
+            </ul>
         </header>
     );
 }

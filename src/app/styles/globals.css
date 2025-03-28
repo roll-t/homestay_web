@@ -1,85 +1,67 @@
 @import 'tailwindcss';
-/* 🌎 Biến toàn cục cho Light Mode */
-:root {
-  /* 🎨 Màu sắc chính */
-  --primary-color: #1e3a8a;
-  /* Xanh dương đậm */
-  --secondary-color: #9333ea;
-  /* Tím */
-  --accent-color: #facc15;
-  /* Vàng */
 
-  /* 🔥 Màu nền và chữ */
+/* 🌎 Light Mode */
+:root {
+  --primary: #1e3a8a;
+  --secondary: #9333ea;
+  --accent: #facc15;
+
   --background: #ffffff;
   --foreground: #171717;
   --border-color: #e5e7eb;
-
-  /* 🌈 Gradient nền */
-  --gradient-start: #3b82f6;
-  --gradient-end: #9333ea;
-
-  /* 🌟 Hiệu ứng box-shadow */
-  --box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-
-  /* ✨ Font chữ */
-  --font-sans: "Inter", sans-serif;
-  --font-mono: "Fira Code", monospace;
+  --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
 /* 🌙 Dark Mode */
 [data-theme="dark"] {
-  --primary-color: #60a5fa;
-  --secondary-color: #c084fc;
-  --accent-color: #fde047;
+  --primary: #60a5fa;
+  --secondary: #c084fc;
+  --accent: #fde047;
 
   --background: #0a0a0a;
   --foreground: #ededed;
   --border-color: #374151;
-
-  --gradient-start: #1e293b;
-  --gradient-end: #4b5563;
-
-  --box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.1);
+  --shadow-color: rgba(255, 255, 255, 0.1);
 }
 
-/* ✨ Cấu hình body */
+/* ✨ Cấu hình nền */
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans, Arial, Helvetica, sans-serif);
+  font-family: "Inter", sans-serif;
 }
 
-/* 🎨 Button mặc định */
+/* 🌟 Button styles */
 button {
-  background-color: var(--primary-color);
+  background-color: var(--primary);
   color: white;
-  padding: 8px 16px;
+  padding: 10px 20px;
   border-radius: 8px;
-  box-shadow: var(--box-shadow);
-  transition: all 0.3s ease;
+  box-shadow: 0px 4px 6px var(--shadow-color);
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--secondary);
 }
 
-/* 📌 Link mặc định */
+/* 📌 Link styles */
 a {
-  color: var(--primary-color);
+  color: var(--primary);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: var(--accent-color);
+  color: var(--accent);
 }
 
-/* 🌟 Hiệu ứng gradient */
+/* 🌈 Gradient Background */
 .gradient-bg {
-  background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
 }
 
-/* 📌 Định dạng border */
+/* 📌 Border styling */
 .border-custom {
   border: 2px solid var(--border-color);
   border-radius: 10px;
@@ -88,25 +70,25 @@ a:hover {
 
 /* 💡 Utility classes */
 .text-primary {
-  color: var(--primary-color);
+  color: var(--primary);
 }
 
 .text-secondary {
-  color: var(--secondary-color);
+  color: var(--secondary);
 }
 
 .text-accent {
-  color: var(--accent-color);
+  color: var(--accent);
 }
 
 .bg-primary {
-  background-color: var(--primary-color);
+  background-color: var(--primary);
 }
 
 .bg-secondary {
-  background-color: var(--secondary-color);
+  background-color: var(--secondary);
 }
 
 .bg-accent {
-  background-color: var(--accent-color);
+  background-color: var(--accent);
 }

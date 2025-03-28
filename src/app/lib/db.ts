@@ -12,7 +12,9 @@ export async function connectDB() {
     }
 
     try {
-        await mongoose.connect(MONGODB_URI);
+        await mongoose.connect(MONGODB_URI, {
+            dbName: "homestay",
+        });
         console.log("✅ Kết nối MongoDB thành công!");
     } catch (error) {
         console.error("❌ Kết nối MongoDB thất bại!", error);

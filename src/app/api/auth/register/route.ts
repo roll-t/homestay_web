@@ -1,24 +1,20 @@
-import { connectDB } from "@/src/app/lib/db";
-import User from "@/src/app/models/User";
+import { connectDB } from "@/app/lib/db";
+import User from "@/app/models/User";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
     await connectDB();
     try {
-        const { name, email, password } = await req.json();
+        const { name, email, password, role } = await req.json();
 
-        // Kiểm tra email đã tồn tại chưa
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return NextResponse.json({ error: "Email đã tồn tại!" }, { status: 400 });
         }
 
-        // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Tạo user mới
-        const newUser = new User({ name, email, password: hashedPassword });
+        const newUser = new User({ name, email, password: hashedPassword, role: role || "user" });
         await newUser.save();
 
         return NextResponse.json({ message: "Đăng ký thành công!" }, { status: 201 });
