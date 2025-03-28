@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import User from "@/app/models/User";
 import { connectDB } from "@/app/lib/db";
+import { UserRole } from "@/utils/enum/userRole";
 
 export default NextAuth({
     providers: [
@@ -48,7 +49,7 @@ export default NextAuth({
         },
         async session({ session, token }) {
             if (session?.user) {
-                session.user.role = token.role as "user" | "admin"; // ✅ Ép kiểu role
+                session.user.role = (token.role as UserRole.USER) || UserRole.ADMIN;// ✅ Ép kiểu role
             }
             return session;
         }
