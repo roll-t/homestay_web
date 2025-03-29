@@ -14,7 +14,7 @@ export default function ProfilePage() {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div className="flex flex-col items-center justify-center min-h-screen">
             <div className="w-full max-w-md bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6">
                 <h2 className="text-2xl font-bold text-center text-gray-900 dark:text-white">
                     Hồ Sơ Của Bạn
@@ -24,10 +24,10 @@ export default function ProfilePage() {
                     <img
                         src={session.user.image}
                         alt="Avatar"
-                        className="w-24 h-24 rounded-full mx-auto"
+                        className="w-24 h-24 rounded-full mx-auto my-10"
                     />
                 )}
-                <p className="text-gray-700 dark:text-gray-300">
+                <p className="text-gray-700 dark:text-gray-300 my-2">
                     <strong>Tên:</strong> {session.user?.name}
                 </p>
                 <p className="text-gray-700 dark:text-gray-300">

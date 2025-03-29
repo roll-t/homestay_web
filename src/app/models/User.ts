@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema(
         role: { type: String, enum: ["user", "admin"], default: "user" },
         provider: { type: String, default: "credentials" }, // 🔹 Thêm provider
         providerAccountId: { type: String, default: null }, // 🔹 ID tài khoản từ Google
+        photoUrl:{ type: String, required: true },// avatar url
     },
     { timestamps: true }
 );

@@ -43,10 +43,10 @@ export const authOptions: NextAuthOptions = {
                         existingUser = new User({
                             name: user.name,
                             email: user.email,
-                            image: user.image,
                             provider: "google",
                             providerAccountId: account?.sub, // 🛠 Lấy provider ID từ Google
                             role: "user", // 🛠 Quyền mặc định
+                            photoUrl: user.image,
                         });
 
                         await existingUser.save(); // Lưu vào MongoDB

@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/authOptions";
 import { UserRole } from "@/utils/enum/userRole";
 import SessionProviderWrapper from "@/components/SessionProviderWrapper"; // ✅ Import SessionProviderWrapper
+import ContactPopup from "@/components/ContactPopup";
 
 export const metadata: Metadata = {
     title: "Next.js App",
@@ -29,6 +30,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                             <ThemeToggle />
                         </main>
                         <Footer />
+                        <ContactPopup />
                     </SessionProviderWrapper>
                 </ThemeProvider>
             </body>
