@@ -3,14 +3,14 @@
 import { useSession, signOut } from "next-auth/react";
 
 export default function ProfilePage() {
-    const { data: session } = useSession();
+    const { data: session, status } = useSession();
+
+    if (status === "loading") {
+        return <p className="text-gray-600 dark:text-gray-300">Đang tải...</p>;
+    }
 
     if (!session) {
-        return (
-            <div className="flex items-center justify-center min-h-screen">
-                <p className="text-gray-600 dark:text-gray-300">Bạn chưa đăng nhập.</p>
-            </div>
-        );
+        return <p className="text-gray-600 dark:text-gray-300">Bạn chưa đăng nhập.</p>;
     }
 
     return (
@@ -20,20 +20,22 @@ export default function ProfilePage() {
                     Hồ Sơ Của Bạn
                 </h2>
 
-                <div className="mt-6 space-y-4">
-                    <p className="text-gray-700 dark:text-gray-300">
-                        <strong>Tên:</strong> {session.user?.name}
-                    </p>
-                    <p className="text-gray-700 dark:text-gray-300">
-                        <strong>Email:</strong> {session.user?.email}
-                    </p>
-                    <p className="text-gray-700 dark:text-gray-300">
-                        <strong>Vai trò:</strong> {session.user?.role || "Người dùng"}
-                    </p>
-                </div>
+                {session.user?.image && (
+                    <img
+                        src={session.user.image}
+                        alt="Avatar"
+                        className="w-24 h-24 rounded-full mx-auto"
+                    />
+                )}
+                <p className="text-gray-700 dark:text-gray-300">
+                    <strong>Tên:</strong> {session.user?.name}
+                </p>
+                <p className="text-gray-700 dark:text-gray-300">
+                    <strong>Email:</strong> {session.user?.email}
+                </p>
 
                 <button
-                    onClick={() => signOut()}
+                    onClick={() => signOut({ callbackUrl: "/" })}
                     className="w-full mt-6 px-4 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600 transition"
                 >
                     Đăng xuất

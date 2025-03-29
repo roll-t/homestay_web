@@ -1,12 +1,19 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
 import User from "@/app/models/User";
 import { connectDB } from "@/app/lib/db";
-import { UserRole } from "@/utils/enum/userRole";
 
 export default NextAuth({
     providers: [
+        // 🔹 Google OAuth Provider
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID!,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+        }),
+
+        // 🔹 Email/Password Login
         CredentialsProvider({
             name: "Credentials",
             credentials: {
@@ -35,26 +42,57 @@ export default NextAuth({
                     id: user._id.toString(),
                     name: user.name,
                     email: user.email,
-                    role: user.role, // ✅ Đảm bảo role được trả về
+                    role: user.role,
                 };
             }
         }),
     ],
     callbacks: {
-        async jwt({ token, user }) {
+        async signIn({ user, account }) {
+            await connectDB(); // Kết nối MongoDB
+
+            if (account?.provider === "google") {
+                let existingUser = await User.findOne({ email: user.email });
+
+                if (!existingUser) {
+                    // 🔹 Lưu tài khoản Google vào MongoDB nếu chưa tồn tại
+                    existingUser = new User({
+                        name: user.name,
+                        email: user.email,
+                        image: user.image,
+                        provider: "google",
+                        providerAccountId: account.providerAccountId,
+                        role: "user", // 🛠 Có thể đặt quyền mặc định
+                    });
+
+                    await existingUser.save(); // Lưu vào MongoDB
+                }
+
+                user.id = existingUser._id.toString();
+            }
+            return true;
+        },
+
+        async jwt({ token, user, account }) {
             if (user) {
-                token.role = user.role; // Thêm role vào token
+                token.id = user.id;
+                token.accessToken = account?.access_token;
             }
             return token;
         },
+
         async session({ session, token }) {
-            if (session?.user) {
-                session.user.role = (token.role as UserRole.USER) || UserRole.ADMIN;// ✅ Ép kiểu role
+            if (session.user) {
+                session.user.id = token.id as string;
+                session.accessToken = token.accessToken as string | undefined;
             }
             return session;
-        }
+        },
     },
     secret: process.env.NEXTAUTH_SECRET,
+    session: {
+        strategy: "jwt",
+    },
     pages: {
         signIn: "/login",
         error: "/login",

@@ -7,6 +7,7 @@ import Navbar from "@/components/ui/Navbar";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/authOptions";
 import { UserRole } from "@/utils/enum/userRole";
+import SessionProviderWrapper from "@/components/SessionProviderWrapper"; // ✅ Import SessionProviderWrapper
 
 export const metadata: Metadata = {
     title: "Next.js App",
@@ -21,12 +22,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <html lang="en" suppressHydrationWarning>
             <body className="flex min-h-screen flex-col">
                 <ThemeProvider>
-                    <Navbar userRole={userRole} />
-                    <main className="flex-1">
-                        {children}
-                        <ThemeToggle />
-                    </main>
-                    <Footer />
+                    <SessionProviderWrapper session={session}> {/* ✅ Bọc toàn bộ app trong SessionProvider */}
+                        <Navbar userRole={userRole} />
+                        <main className="flex-1">
+                            {children}
+                            <ThemeToggle />
+                        </main>
+                        <Footer />
+                    </SessionProviderWrapper>
                 </ThemeProvider>
             </body>
         </html>
