@@ -5,11 +5,19 @@
   --primary: #1e3a8a;
   --secondary: #9333ea;
   --accent: #facc15;
+  --text-color: #171717;
 
   --background: #ffffff;
   --foreground: #171717;
   --border-color: #e5e7eb;
   --shadow-color: rgba(0, 0, 0, 0.1);
+
+  /* Màu mở rộng */
+  --muted: #f3f4f6;
+  --highlight: #2563eb;
+  --danger: #dc2626;
+  --success: #16a34a;
+  --info: #0ea5e9;
 }
 
 /* 🌙 Dark Mode */
@@ -17,11 +25,19 @@
   --primary: #60a5fa;
   --secondary: #c084fc;
   --accent: #fde047;
+  --text-color: #ffffff;
 
   --background: #0a0a0a;
   --foreground: #ededed;
   --border-color: #374151;
   --shadow-color: rgba(255, 255, 255, 0.1);
+
+  /* Màu mở rộng */
+  --muted: #1f2937;
+  --highlight: #3b82f6;
+  --danger: #ef4444;
+  --success: #22c55e;
+  --info: #38bdf8;
 }
 
 /* ✨ Cấu hình nền */
@@ -42,7 +58,7 @@ button {
 }
 
 button:hover {
-  background-color: var(--secondary);
+  background-color: var(--highlight);
 }
 
 /* 📌 Link styles */
@@ -68,9 +84,9 @@ a:hover {
   padding: 10px;
 }
 
-/* 💡 Utility classes */
+/* 🌟 Text color classes based on theme */
 .text-primary {
-  color: var(--primary);
+  color: var(--text-color);
 }
 
 .text-secondary {
@@ -81,14 +97,59 @@ a:hover {
   color: var(--accent);
 }
 
+.text-muted {
+  color: var(--muted);
+}
+
+.text-danger {
+  color: var(--danger);
+}
+
+.text-success {
+  color: var(--success);
+}
+
+.text-info {
+  color: var(--info);
+}
+
+/* 🌙 Dark mode adjustments */
+[data-theme="dark"] .text-primary {
+  color: var(--foreground);
+}
+
 .bg-primary {
   background-color: var(--primary);
 }
 
-.bg-secondary {
-  background-color: var(--secondary);
+.bg-muted {
+  background-color: var(--muted);
 }
 
-.bg-accent {
-  background-color: var(--accent);
+.bg-danger {
+  background-color: var(--danger);
+}
+
+.bg-success {
+  background-color: var(--success);
+}
+
+.bg-info {
+  background-color: var(--info);
+}
+
+.border-danger {
+  border-color: var(--danger);
+}
+
+.border-success {
+  border-color: var(--success);
+}
+
+.border-info {
+  border-color: var(--info);
+}
+
+.bg-black-opacity-50 {
+  background-color: #0a0a0a83;
 }

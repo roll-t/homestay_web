@@ -8,7 +8,7 @@ export default function ContactPopup() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className="fixed bottom-20 right-5 z-50 flex flex-col items-end gap-3">
+        <div className="fixed bottom-20 right-4 sm:bottom-20 md:right-5 z-50 flex flex-col items-end gap-3">
             {/* Nút mở hộp thoại */}
             <motion.button
                 onClick={() => setIsOpen(!isOpen)}
@@ -17,7 +17,7 @@ export default function ContactPopup() {
                 whileTap={{ scale: 0.9 }}
             >
                 <MessageCircle className="w-6 h-6" />
-                <span className="hidden md:inline">Liên hệ</span>
+                <span className="hidden sm:inline">Liên hệ</span> {/* Ẩn chữ trên mobile */}
             </motion.button>
 
             {/* Popup liên hệ */}
@@ -26,34 +26,24 @@ export default function ContactPopup() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="bg-[#E3F2FD] shadow-xl p-5 rounded-xl w-64 flex flex-col gap-4 border border-gray-300 relative"
+                    className="bg-[#E3F2FD] shadow-xl p-5 rounded-xl w-[90%] sm:w-64 flex flex-col gap-4 border border-gray-300 relative"
                 >
                     {/* Nút đóng */}
-                    <div
+                    <button
                         onClick={() => setIsOpen(false)}
-                        className="absolute top-2 right-2 transition appearance-none border-none bg-transparent p-1"
+                        className="absolute top-2 right-2 p-1 bg-transparent border-none transition"
                     >
                         <X className="w-6 h-6 text-gray-500 hover:text-gray-700" />
-                    </div>
+                    </button>
 
                     <h3 className="text-lg font-semibold text-gray-900 text-center">Liên hệ với shop</h3>
 
-                    {/* Zalo */}
-                    {/* <a
-                        href="https://zalo.me/s/qrwallet"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group flex items-center gap-3 bg-white text-blue-700 p-3 rounded-lg shadow-md border border-blue-300 transition transform hover:scale-105 hover:bg-blue-100 hover:border-blue-500 hover:shadow-lg focus:ring-2 focus:ring-blue-300"
-                    >
-                        <img src="/zalo.png" alt="Zalo" className="w-6 h-6" />
-                        <span className="group-hover:text-blue-950 transition">Chat với Zalo</span>
-                    </a> */}
                     {/* Messenger */}
                     <a
                         href="https://m.me/phuoc.truong.36377"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group flex items-center gap-3 bg-white hover:bg-blue-100 text-blue-700 p-3 rounded-lg shadow-md transition transform hover:scale-105 border border-blue-400"
+                        className="group flex items-center gap-3 bg-white hover:bg-blue-100 text-blue-700 p-3 rounded-lg shadow-md transition hover:scale-105 border border-blue-400"
                     >
                         <img src="/messenger.png" alt="Messenger" className="w-6 h-6" />
                         <span className="group-hover:text-blue-950 transition">Chat với Messenger</span>
@@ -62,12 +52,11 @@ export default function ContactPopup() {
                     {/* Gọi điện thoại */}
                     <a
                         href="tel:0812608562"
-                        className="group flex items-center gap-3 bg-white hover:bg-green-100 text-green-700 p-3 rounded-lg shadow-md transition transform hover:scale-105 border border-green-400"
+                        className="group flex items-center gap-3 bg-white hover:bg-green-100 text-green-700 p-3 rounded-lg shadow-md transition hover:scale-105 border border-green-400"
                     >
                         <img src="/telephone.png" alt="Gọi điện thoại" className="w-6 h-6" />
                         <span className="group-hover:text-green-950 transition">Gọi điện thoại</span>
                     </a>
-
                 </motion.div>
             )}
         </div>
