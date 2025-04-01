@@ -6,19 +6,21 @@ import { ROUTES } from "@/utils/routes";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
-import { usePathname } from "next/navigation";
+
 
 const listNav = [
-    { name: "Home", path: ROUTES.HOME },
-    { name: "About", path: ROUTES.ABOUT },
-    { name: "Contact", path: ROUTES.CONTACT },
+    { name: "Home", id: ROUTES.HOME },
+    { name: "About", id: ROUTES.ABOUT },
+    { name: "Service", id: ROUTES.SERVICE },
+    { name: "Contact", id: ROUTES.CONTACT },
 ];
 
 export default function Navbar({ userRole }: { userRole: UserRole }) {
-    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [visible, setVisible] = useState(true);
     const prevScrollPos = useRef(0);
+
+
 
     useEffect(() => {
         const handleScroll = () => {
@@ -33,6 +35,15 @@ export default function Navbar({ userRole }: { userRole: UserRole }) {
     const isAdmin = userRole === UserRole.ADMIN;
     const isAuthenticated = userRole !== UserRole.GUEST;
 
+    // Hàm xử lý scroll mượt đến section tương ứng
+    const handleScroll = (id: string) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        setIsOpen(false); // Đóng menu trên mobile sau khi click
+    };
+
     return (
         <motion.header
             suppressHydrationWarning={true}
@@ -45,15 +56,17 @@ export default function Navbar({ userRole }: { userRole: UserRole }) {
                 <h2 className="text-lg font-bold text-primary text-text-light-color dark:text-text-dark-color">NhaCuaOc</h2>
 
                 {/* Desktop Menu */}
+
+                {/* Desktop Menu */}
                 <ul className="hidden md:flex justify-center items-center space-x-6">
-                    {listNav.map(({ name, path }) => (
-                        <Link
-                            key={path}
-                            href={path}
-                            className={`px-4 py-2 transition ${pathname === path ? "font-bold text-accent" : "hover:text-muted text-primary"}`}
+                    {listNav.map(({ name, id }) => (
+                        <button
+                            key={id}
+                            onClick={() => handleScroll(id)}
+                            className="px-4 py-2 transition hover:text-muted text-primary"
                         >
                             {name}
-                        </Link>
+                        </button>
                     ))}
                 </ul>
 
@@ -82,27 +95,18 @@ export default function Navbar({ userRole }: { userRole: UserRole }) {
             </div>
 
             {/* Mobile Menu */}
+            {/* Mobile Menu */}
             {isOpen && (
-                <div className="md:hidden absolute top-16 left-0 w-full bg-primary  shadow-lg py-4 px-6 flex flex-col items-center space-y-4">
-                    {listNav.map(({ name, path }) => (
-                        <Link
-                            key={path}
-                            href={path}
-                            className={`block transition ${pathname === path ? "font-bold text-accent" : "hover:text-muted text-primary"}`}
-                            onClick={() => setIsOpen(false)}
+                <div className="md:hidden absolute top-16 left-0 w-full bg-primary shadow-lg py-4 px-6 flex flex-col items-center space-y-4">
+                    {listNav.map(({ name, id }) => (
+                        <button
+                            key={id}
+                            onClick={() => handleScroll(id)}
+                            className="block transition hover:text-muted text-primary"
                         >
                             {name}
-                        </Link>
+                        </button>
                     ))}
-                    {isAdmin && (
-                        <Link
-                            className="block px-4 py-2 bg-danger text-primary rounded-lg hover:bg-danger transition"
-                            href="/admin"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            Admin Dashboard
-                        </Link>
-                    )}
                     {isAuthenticated ? (
                         <Link
                             href={ROUTES.PROFILE}

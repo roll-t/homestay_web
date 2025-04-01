@@ -8,8 +8,7 @@ export default function ContactPopup() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className="fixed bottom-20 right-4 sm:bottom-20 md:right-5 z-50 flex flex-col items-end gap-3">
-            {/* Nút mở hộp thoại */}
+        <div className="flex flex-col items-end gap-3">
             <motion.button
                 onClick={() => setIsOpen(!isOpen)}
                 className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition flex items-center gap-2"
@@ -29,12 +28,12 @@ export default function ContactPopup() {
                     className="bg-[#E3F2FD] shadow-xl p-5 rounded-xl w-[90%] sm:w-64 flex flex-col gap-4 border border-gray-300 relative"
                 >
                     {/* Nút đóng */}
-                    <button
+                    <div
                         onClick={() => setIsOpen(false)}
                         className="absolute top-2 right-2 p-1 bg-transparent border-none transition"
                     >
                         <X className="w-6 h-6 text-gray-500 hover:text-gray-700" />
-                    </button>
+                    </div>
 
                     <h3 className="text-lg font-semibold text-gray-900 text-center">Liên hệ với shop</h3>
 

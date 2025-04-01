@@ -1,5 +1,5 @@
 export const ROUTES = {
-    HOME: "/home",
+    HOME: "/",
     ABOUT: "/about",
     CONTACT: "/contact",
     PROFILE: "/auth/profile",
@@ -7,6 +7,7 @@ export const ROUTES = {
     REGISTER: "/auth/register",
     DASHBOARD: "/dashboard",
     USERS: "/dashboard/users",
+    SERVICE: "/dashboard/service",
     USER_DETAIL: (id: string | number) => `/dashboard/users/${id}`,
     SETTINGS: "/dashboard/settings",
     NOT_FOUND: "/404",
